@@ -28,4 +28,3 @@ Ignite your good mood, ignite your free time!
 
  **User Story 10** (Professional gamer): „Fiind nevoit să petrec atât de mult timp în fața calculatorului, am nevoie de ceva care să mă deconecteze. Însă mă plictisesc repede și aș avea nevoie și de ceva care să mă facă să intru mai des pe aplicație, poate chiar și un reward ca să mă laud în fața prietenilor, spre exemplu ceva asemănător cu streak-urile de la jocuri.”
  
- ## Diagrama Entitare Relație
