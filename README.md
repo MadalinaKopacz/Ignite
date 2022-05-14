@@ -28,3 +28,6 @@ Ignite your good mood, ignite your free time!
 
  **User Story 10** (Professional gamer): „Fiind nevoit să petrec atât de mult timp în fața calculatorului, am nevoie de ceva care să mă deconecteze. Însă mă plictisesc repede și aș avea nevoie și de ceva care să mă facă să intru mai des pe aplicație, poate chiar și un reward ca să mă laud în fața prietenilor, spre exemplu ceva asemănător cu streak-urile de la jocuri.”
  
+ ## Diagramă UML
+ 
+![Ignite_UML](https://user-images.githubusercontent.com/79279298/168425497-4b19d8d7-6c8a-411a-bb82-fc14212e499d.png)
