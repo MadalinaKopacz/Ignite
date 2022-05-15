@@ -1,0 +1,95 @@
+<div class="main">
+    <h3>User profile</h3>
+    <table>
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+
+            </td>
+            <td>
+                {{ data.username }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Full name:
+            </td>
+            <td>
+
+            </td>
+            <td>
+                {{ data.first_name }}
+            </td>
+            <td>
+                {{ data.last_name }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+
+            </td>
+            <td>
+                {{ data.username }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Email:
+            </td>
+            <td>
+
+            </td>
+            <td>
+                {{ data.email }}
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                Last login:
+            </td>
+            <td>
+
+            </td>
+            <td>
+                {{ data.last_login }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Friends:
+            </td>
+            <td>
+
+            </td>
+            <td>
+                <ul>
+                    {% for friend in friends%}
+                        <li> {{ friend.username }}</li>
+                    {% empty %}
+                        <li> No friends yet</li>
+                    {% endfor %}
+                </ul>
+               
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <img src="{{data.profile_picture.url}}" width="300px">
+            </td>
+        </tr>
+    </table>
+
+
+</div>
