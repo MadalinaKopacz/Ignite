@@ -1,0 +1,9 @@
+<div class="main">
+    <form method="POST">
+        {% csrf_token %}
+        <!-- Security token by Django -->
+        Permenantly delete this question?
+        <input type="submit" value="Yes" />
+        <a href="/">Go to main page </a>
+    </form>
+</div>
