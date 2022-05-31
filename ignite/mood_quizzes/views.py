@@ -1,21 +1,24 @@
-from multiprocessing import context
+from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextForm, QuestionUpdateTypeForm
-from .models import Question
-from django.shortcuts import get_object_or_404, HttpResponseRedirect
+import random
 
-# Create your views here.
-def createView(request):
-    context = {}
-    form = QuestionCreateForm(request.POST or None, request.FILES or None)
+from mood_quizzes.models import Question
 
-    if form.is_valid():
-        form.save()
-    
-    context['form'] = form
-    return render(request, "quizzes/createquestion.html", context)
+def get_quiz():
+    questions = Question.objects.all()
+    type1 = questions.filter(type == 1)
+    type2 = questions.filter(type == 2)
+    type3 = questions.filter(type == 3)
 
+    n1 = len(type1)
+    n2 = len(type2)
+    n3 = len(type3)
 
+<<<<<<< Updated upstream
+    return HttpResponse([type1[random.randint(0, n1)],
+                         type2[random.randint(0, n2)],
+                         type3[random.randint(0, n3)]])
+=======
 def listView(request):
     context ={}
  
@@ -24,10 +27,10 @@ def listView(request):
     return render(request, "quizzes/readquestion.html", context)
 
 
-def questionsByType(request, type):
+def questionsByType(request, qtype):
     context ={}
  
-    context["dataset"] = Question.objects.filter(type = type)
+    context["dataset"] = Question.objects.filter(qtype = qtype)
          
     return render(request, "quizzes/readquestion.html", context)
 
@@ -51,12 +54,12 @@ def deleteQuestionById(request, id):
  
     return render(request, "quizzes/deleteQId.html", context)
 
-def deleteQuestionsByType(request, type):
+def deleteQuestionsByType(request, qtype):
     context ={}
  
  
     if request.method =="POST":
-        Question.objects.filter(type = type).delete()
+        Question.objects.filter(qtype = qtype).delete()
         return HttpResponseRedirect("/") #return to home page
  
     return render(request, "quizzes/deleteQs.html", context)
@@ -119,3 +122,4 @@ def updateQuestion(request, id):
     context["form"] = form
  
     return render(request, "quizzes/updateQId.html", context)
+>>>>>>> Stashed changes

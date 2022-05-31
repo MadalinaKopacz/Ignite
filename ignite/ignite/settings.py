@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ignite.urls'
+ROOT_URLCONF = 'mds_project.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ignite.wsgi.application'
+WSGI_APPLICATION = 'mds_project.wsgi.application'
 
 
 # Database
@@ -84,7 +84,11 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'madalina',
+<<<<<<< Updated upstream
+        'PASSWORD': '',
+=======
+        'PASSWORD': '',
+>>>>>>> Stashed changes
     }
 }
 
@@ -124,6 +128,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
