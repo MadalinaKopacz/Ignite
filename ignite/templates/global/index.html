@@ -1,5 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-100 h-100">
+
 <head>
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -7,11 +9,13 @@
 
   <title>Ignite</title>
 </head>
-<body>
-  <div>
-    <img src="../media/global_images/logo.png"/>
+
+<body class="w-100 h-100" style="background-color: #FFEEC4">
+  <div class="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+    <img style="height: 128px" class="mb-4" src="{% static 'global_images/logo.png' %}" />
+    <a href="{% url 'accounts:login' %}" class="btn btn-lg btn-secondary mb-3">Login</a>
+    <a href="{% url 'accounts:create' %}" class="btn btn-lg btn-secondary">Register</a>
   </div>
-  <a href="{% url 'accounts:login' %}" class="btn btn-secondary">Login</a>
-  <a type="button" class="btn btn-secondary">Register</a>
 </body>
+
 </html>
