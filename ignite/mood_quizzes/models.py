@@ -6,4 +6,4 @@ class Question(models.Model):
 
     title = models.CharField(max_length=50, blank=True)
     text = models.CharField(max_length=300)
-    type = models.IntegerField(choices = TYPES)
+    qtype = models.IntegerField(choices = TYPES)

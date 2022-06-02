@@ -1,7 +1,7 @@
 from django.urls import include, path
 from . import views
 
-urlpatterns = [  path('create', views.createView),
+urlpatterns = [  path('create', views.createView, name='create'),
                  path('detailView/<username>', views.detailView),
                  path('profile', views.profile),
                  path('update/<username>', views.updateView),

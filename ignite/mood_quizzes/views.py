@@ -24,10 +24,10 @@ def listView(request):
     return render(request, "quizzes/readquestion.html", context)
 
 
-def questionsByType(request, type):
+def questionsByType(request, qtype):
     context ={}
  
-    context["dataset"] = Question.objects.filter(type = type)
+    context["dataset"] = Question.objects.filter(qtype = qtype)
          
     return render(request, "quizzes/readquestion.html", context)
 
@@ -51,12 +51,12 @@ def deleteQuestionById(request, id):
  
     return render(request, "quizzes/deleteQId.html", context)
 
-def deleteQuestionsByType(request, type):
+def deleteQuestionsByType(request, qtype):
     context ={}
  
  
     if request.method =="POST":
-        Question.objects.filter(type = type).delete()
+        Question.objects.filter(qtype = qtype).delete()
         return HttpResponseRedirect("/") #return to home page
  
     return render(request, "quizzes/deleteQs.html", context)

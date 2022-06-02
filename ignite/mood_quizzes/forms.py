@@ -4,13 +4,13 @@ from .models import Question
 class QuestionCreateForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ["type", "text"]
+        fields = ["qtype", "text"]
     
 
 class QuestionUpdateTypeForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ["type"]
+        fields = ["qtype"]
 
 class QuestionUpdateTextForm(forms.ModelForm):
     class Meta:
@@ -20,4 +20,4 @@ class QuestionUpdateTextForm(forms.ModelForm):
 class QuestionUpdateForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ["type", "text"]
+        fields = ["qtype", "text"]
