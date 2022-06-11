@@ -1,0 +1,21 @@
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- Security token -->
+    {% csrf_token %}
+    <div>
+        <p>{{ q1 }}</p>
+        {{ form.answer1 }}
+    </div>
+
+    <div>
+        <p>{{ q2 }}</p>
+        {{ form.answer2 }}
+    </div>
+
+    <div>
+        <p>{{ q3 }}</p>
+        {{ form.answer3 }}
+    </div>
+
+    <input type="submit" value="Submit">
+</form>

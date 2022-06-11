@@ -1,5 +1,5 @@
 """
-WSGI config for mds_project project.
+WSGI config for ignite project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

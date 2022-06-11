@@ -1,6 +1,8 @@
 from multiprocessing import context
+import random
+from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextForm, QuestionUpdateTypeForm
+from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextForm, QuestionUpdateTypeForm, QuizForm
 from .models import Question
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 
@@ -15,6 +17,31 @@ def createView(request):
     context['form'] = form
     return render(request, "quizzes/createquestion.html", context)
 
+def get_quiz(request):
+    if request.method =="POST":
+        return HttpResponse("cv")
+
+    questions = Question.objects.all()
+    type1 = questions.filter(qtype = 1)
+    type2 = questions.filter(qtype = 2)
+    type3 = questions.filter(qtype = 3)
+
+
+    n1 = len(type1)
+    n2 = len(type2)
+    n3 = len(type3)
+
+    context = {'q1':type1[random.randint(0, n1-1)],
+                'q2':type2[random.randint(0, n2-1)],
+                'q3':type3[random.randint(0, n3-1)]}
+
+     # pass the object as instance in form
+    form = QuizForm()
+ 
+    # add form dictionary to context
+    context["form"] = form
+
+    return render(request, "quizzes/quiz.html", context)
 
 def listView(request):
     context ={}
