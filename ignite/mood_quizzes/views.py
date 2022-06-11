@@ -1,10 +1,13 @@
 from multiprocessing import context
 import random
+import re
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextForm, QuestionUpdateTypeForm, QuizForm
 from .models import Question
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
+from activities.views import chooseActivities
+
 
 # Create your views here.
 def createView(request):
@@ -19,7 +22,12 @@ def createView(request):
 
 def get_quiz(request):
     if request.method =="POST":
-        return HttpResponse("cv")
+        # Use data to get activity
+        print(request.POST)
+        return chooseActivities(request, socialScore = request.POST['answer1'],
+                        physicalScore= request.POST['answer2'], moneyScore=request.POST['answer3'])
+        
+        # return HttpResponse("cv")
 
     questions = Question.objects.all()
     type1 = questions.filter(qtype = 1)
@@ -40,7 +48,6 @@ def get_quiz(request):
  
     # add form dictionary to context
     context["form"] = form
-
     return render(request, "quizzes/quiz.html", context)
 
 def listView(request):

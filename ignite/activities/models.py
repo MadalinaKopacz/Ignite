@@ -21,6 +21,11 @@ class Activity(models.Model):
     location_type = models.CharField(max_length=30, choices=LOCATION_TYPES, default='any')
 
 
+    
+    def __str__(self):
+        return u'{0}'.format(self.name + ' ' + self.description + ' ' + self.location)
+
+
 class Weather(models.Model):
     WEATHER_TYPES = [('sunny', 'sunny'),
                      ('cloudy', 'cloudy'), 

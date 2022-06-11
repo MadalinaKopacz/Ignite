@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'ignite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mds_project',
+        'NAME': 'ignite',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'madalina',
+        'PASSWORD': 'sCbl55AlVlea',
     }
 }
 
@@ -142,6 +142,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
-LOGIN_REDIRECT_URL = '/accounts/profile'
+LOGIN_REDIRECT_URL = '/start_page/get/'
 
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')

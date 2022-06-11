@@ -5,6 +5,5 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 
 def main(request):
-    url = "/accounts/login"
-    context = {"login_link" : url}
+    context = {}
     return render(request,"global/index.html", context=context)

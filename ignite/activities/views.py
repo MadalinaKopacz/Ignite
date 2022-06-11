@@ -3,9 +3,9 @@ from django.shortcuts import (get_object_or_404,
                               render,
                               HttpResponseRedirect
                              )
-from .models import Activity
+from .models import Activity, ActivityScore
 from .forms import ActivityForm
-
+from start_page.views import get_temperature
 
 def create_activity(request):
     context ={}
@@ -79,7 +79,7 @@ def ordActivities(socialScore, physicalScore, moneyScore, weather):
                 dist += abs(physicalScore - actscore.score )
             elif actscore.type == "money":
                 dist += abs(moneyScore - actscore.score )
-        if elem.location_type == "outdoor" and weather == "cold":   #modify distance if the weather is bad
+        if elem.location_type == "outdoor" and weather == "rain":   #modify distance if the weather is bad
             dist += 2
         distancesList.append((dist, elem))
     distancesList.sort()
@@ -87,10 +87,12 @@ def ordActivities(socialScore, physicalScore, moneyScore, weather):
 
 def chooseActivities(request, socialScore, physicalScore, moneyScore, contor=0):
     """
-    contor: the number of "regresh page"s
+    contor: the number of "refresh page"s
     """
     
-    listActivity = ordActivities(socialScore, physicalScore, moneyScore) 
-    context = {contor:contor, 
-               listActivity: listActivity}
-    return render(request, "chooseActivity.html", context)
+    weather = get_temperature(request)['description']
+    listActivity = ordActivities(socialScore, physicalScore, moneyScore, weather) 
+    context = {'contor':contor, 
+               'listActivity': listActivity}
+
+    return HttpResponse(listActivity[0][1])

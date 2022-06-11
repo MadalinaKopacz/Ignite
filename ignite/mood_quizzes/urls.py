@@ -11,5 +11,5 @@ urlpatterns = [ path('createQuestion/', views.createView),
                 path('updateQuestionType/<id>/', views.updateType),
                 path('updateQuestionText/<id>/', views.updateText),
                 path('updateQuestion/<id>/', views.updateQuestion),
-                path('quiz/', views.get_quiz)
+                path('quiz/', views.get_quiz, name='quiz')
 ]

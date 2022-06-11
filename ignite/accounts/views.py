@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from .forms import FriendRequests, addFriend, userCreate
 from .models import Friend_Request, User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # Create your views here.
 def createView(request):
@@ -11,6 +12,8 @@ def createView(request):
     form = userCreate(request.POST or None, request.FILES or None)
 
     if request.method == "POST":
+        if form.is_valid():
+            form.save()
         return profile(request)
 
     if form.is_valid():
@@ -119,3 +122,8 @@ def acceptFriendView(request, requestID):
     else:
         return HttpResponse("Request denied")
 
+@login_required
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect("../../")
