@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mood_quizzes',
     'accounts',
     'crispy_forms',
+    'start_page'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -86,7 +87,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'madalina',
+        'PASSWORD': '113045Dorianm@',
     }
 }
 

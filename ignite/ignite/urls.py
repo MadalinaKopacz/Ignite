@@ -24,6 +24,7 @@ urlpatterns = [
     path('activities/', include('activities.urls')),
     path('mood_quizzes/', include('mood_quizzes.urls')),
     path('accounts/', include(('accounts.urls','accounts'), namespace="accounts")),
+    path('start_page/', include('start_page.urls')),
     path('', views.main)
 ]
 
