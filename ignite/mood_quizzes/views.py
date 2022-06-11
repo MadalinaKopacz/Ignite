@@ -1,24 +1,48 @@
+from multiprocessing import context
+import random
 from django.http import HttpResponse
 from django.shortcuts import render
-import random
+from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextForm, QuestionUpdateTypeForm, QuizForm
+from .models import Question
+from django.shortcuts import get_object_or_404, HttpResponseRedirect
 
-from mood_quizzes.models import Question
+# Create your views here.
+def createView(request):
+    context = {}
+    form = QuestionCreateForm(request.POST or None, request.FILES or None)
 
-def get_quiz():
+    if form.is_valid():
+        form.save()
+    
+    context['form'] = form
+    return render(request, "quizzes/createquestion.html", context)
+
+def get_quiz(request):
+    if request.method =="POST":
+        return HttpResponse("cv")
+
     questions = Question.objects.all()
-    type1 = questions.filter(type == 1)
-    type2 = questions.filter(type == 2)
-    type3 = questions.filter(type == 3)
+    type1 = questions.filter(qtype = 1)
+    type2 = questions.filter(qtype = 2)
+    type3 = questions.filter(qtype = 3)
+
 
     n1 = len(type1)
     n2 = len(type2)
     n3 = len(type3)
 
-<<<<<<< Updated upstream
-    return HttpResponse([type1[random.randint(0, n1)],
-                         type2[random.randint(0, n2)],
-                         type3[random.randint(0, n3)]])
-=======
+    context = {'q1':type1[random.randint(0, n1-1)],
+                'q2':type2[random.randint(0, n2-1)],
+                'q3':type3[random.randint(0, n3-1)]}
+
+     # pass the object as instance in form
+    form = QuizForm()
+ 
+    # add form dictionary to context
+    context["form"] = form
+
+    return render(request, "quizzes/quiz.html", context)
+
 def listView(request):
     context ={}
  
@@ -122,4 +146,3 @@ def updateQuestion(request, id):
     context["form"] = form
  
     return render(request, "quizzes/updateQId.html", context)
->>>>>>> Stashed changes

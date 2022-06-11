@@ -87,7 +87,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': '113045Dorianm@',
+        'PASSWORD': 'sCbl55AlVlea',
     }
 }
 
@@ -143,3 +143,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 LOGIN_REDIRECT_URL = '/accounts/profile'
+
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')

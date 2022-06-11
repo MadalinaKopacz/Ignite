@@ -6,3 +6,6 @@ class Question(models.Model):
     title = models.CharField(max_length=50, blank=True)
     text = models.CharField(max_length=300)
     qtype = models.IntegerField(choices = TYPES)
+    
+    def __str__(self):
+        return u'{0}'.format(self.text)
