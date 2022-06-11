@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from datetime import datetime
+
 from django.contrib.gis.utils import GeoIP2
+
 
 
 def get_time(request):
@@ -13,6 +15,7 @@ def get_temperature(request):
     city = ""
 
     g = GeoIP2()
+
     ip = request.META.get('REMOTE_ADDR', None)
     if ip:
         city = g.city(ip)['city']
