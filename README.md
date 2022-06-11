@@ -30,4 +30,5 @@ Ignite your good mood, ignite your free time!
  
  ## Diagramă UML
  
-![Ignite_UML](https://user-images.githubusercontent.com/79279298/168425497-4b19d8d7-6c8a-411a-bb82-fc14212e499d.png)
+![uml drawio](https://user-images.githubusercontent.com/79279298/171692554-9e6a2869-ef6d-42e0-9d44-2e4c34c670a9.png)
+

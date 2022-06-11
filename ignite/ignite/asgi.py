@@ -1,5 +1,5 @@
 """
-ASGI config for ignite project.
+ASGI config for mds_project project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
