@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from datetime import datetime
-import requests
+from django.contrib.gis.utils import GeoIP
+
 
 def get_time(request):
     current_datetime = datetime.now()  
@@ -9,8 +10,17 @@ def get_time(request):
 
 def get_temperature(request):
     key = "9fa76c16db4ea6572cdc950e6ec3ed42"
-    city = "Bucharest"
+    city = ""
+    
+    g = GeoIP()
+    ip = request.META.get('REMOTE_ADDR', None)
+    if ip:
+        city = g.city(ip)['city']
+    else:
+        city = 'Bucharest' 
+
     url1 = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=5&appid={key}"
+
 
     r1 = request.get(url1).json()
     lon = r1["lon"]
@@ -26,3 +36,9 @@ def get_temperature(request):
     }
 
     return city_weather
+
+def get_data(request):
+    time = get_time(request)
+    city_weather = get_temperature(request)
+
+    return render(request, "", {"time" : time, "weather" : city_weather})
