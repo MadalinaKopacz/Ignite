@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'activities',
     'mood_quizzes',
-    'accounts'
+    'accounts',
+    'crispy_forms',
+    'start_page'
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,11 +87,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-<<<<<<< Updated upstream
-        'PASSWORD': '',
-=======
-        'PASSWORD': '',
->>>>>>> Stashed changes
+        'PASSWORD': '113045Dorianm@',
     }
 }
 
@@ -127,9 +126,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
