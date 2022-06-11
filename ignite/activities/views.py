@@ -61,3 +61,36 @@ def update_activity(request, id):
     context["form"] = form
  
     return render(request, "update_activity.html", context)
+
+def ordActivities(socialScore, physicalScore, moneyScore, weather):
+    """
+    socialScore, physicalScore, moneyScore: quiz responses
+    """
+    distancesList = []
+    for elem in Activity.objects.all():   #for each activity
+        activScores = ActivityScore.objects.filter(activity_id = elem.id)  #for each score of one activity
+        dist = 0
+        for actscore in activScores:   #we calculate the distance: 
+                                       #dist = |activitySocialScore-personSocialScore|+
+                                       # +|activityPhysicalScore-personPhysicalScore|+|activityMoneyScore-personMoneyScore|
+            if actscore.type == "social":
+                dist += abs(socialScore - actscore.score )
+            elif actscore.type == "physical":
+                dist += abs(physicalScore - actscore.score )
+            elif actscore.type == "money":
+                dist += abs(moneyScore - actscore.score )
+        if elem.location_type == "outdoor" and weather == "cold":   #modify distance if the weather is bad
+            dist += 2
+        distancesList.append((dist, elem))
+    distancesList.sort()
+    return distancesList
+
+def chooseActivities(request, socialScore, physicalScore, moneyScore, contor=0):
+    """
+    contor: the number of "regresh page"s
+    """
+    
+    listActivity = ordActivities(socialScore, physicalScore, moneyScore) 
+    context = {contor:contor, 
+               listActivity: listActivity}
+    return render(request, "chooseActivity.html", context)
