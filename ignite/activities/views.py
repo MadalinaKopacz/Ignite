@@ -6,6 +6,7 @@ from django.shortcuts import (get_object_or_404,
 from .models import Activity, ActivityScore
 from .forms import ActivityForm
 from start_page.views import get_temperature
+from accounts.views import increment_streaks
 
 def create_activity(request):
     context = {}
@@ -100,8 +101,17 @@ def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, c
     if counter > len(listActivity) - 1:
         counter = 0
     your_activity = listActivity[counter][1]
+    if your_activity.location_type == "indoor":
+        your_activity.lat = 44.441503
+        your_activity.lon = 26.016553
     counter += 1
     context = {"counter":counter, 
                "activity": your_activity}
 
     return render(request, "global/your_activity.html", context)
+
+def start_activity(request, lat, lon):
+    context = {"lat":lat, "lon":lon, "user":request.user}
+    increment_streaks(request)
+    return render(request, "global/explorer.html", context)
+

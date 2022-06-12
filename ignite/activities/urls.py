@@ -6,5 +6,6 @@ urlpatterns = [path('create/', views.create_activity),
                path('<id>/', views.get_by_id),
                path('<id>/delete/', views.delete_activity),
                path('<id>/update/', views.update_activity),
-               path('<socialScore>/<physicalScore>/<moneyScore>/<weather>/<counter>/', views.chooseActivities, name='choose_activity') 
+               path('<socialScore>/<physicalScore>/<moneyScore>/<weather>/<counter>/', views.chooseActivities, name='choose_activity'),
+               path('<lon>/<lat>', views.start_activity, name="explorer") 
 ]

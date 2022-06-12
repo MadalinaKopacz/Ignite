@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'ignite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ignite',
+        'NAME': 'mds_project',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '113045Dorianm@',
     }
 }
 
