@@ -24,8 +24,8 @@
 <body class="w-100 h-100" style="background-color: #FFEEC4">
     <div class="main">
      
-        <p>{{ data.name }}<p/>
-        <p>{{ data.description }}<p><br/>
+        <p>{{ activity.name }}<p/>
+        <p>{{ activity.description }}<p><br/>
         <div id="map"></div>
             <script 
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyariNg9tgX0GBtdB2I_syXBuiN3BOBNs&callback=initMap&libraries=&v=weekly" async>
@@ -34,8 +34,8 @@
             <script>
                 function initMap() {
                     const gfg_office = {
-                        lat: parseFloat("{{lat}}"),
-                        lng: 77.40548
+                        lat: parseFloat("{{activity.lat}}"),
+                        lng: parseFloat("{{activity.lon}}")
                     };
           
                     const map = new google.maps.Map(
@@ -51,5 +51,8 @@
                       });
                 }
             </script>
+    </div>
+    <div>
+        <a href="{% url 'activities:choose_activity' socialScore=1 physicalScore=1 moneyScore=1 weather="sunny" counter=counter %}" class="btn btn-lg btn-secondary mb-3">Change activity</a>
     </div>
 </body>
