@@ -25,9 +25,7 @@ def get_temperature(request):
 
     url1 = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=5&appid={key}"
 
-
     r1 = requests.get(url1).json()
-    print(r1)
     lon = r1[0]["lon"]
     lat = r1[0]["lat"]
 
@@ -43,6 +41,9 @@ def get_temperature(request):
     return city_weather
 
 def get_data(request):
+    if request.user.is_anonymous:
+        return render(request, "global/index.html")
+
     time = get_time(request)
     city_weather = get_temperature(request)
 

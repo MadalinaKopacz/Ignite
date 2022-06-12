@@ -1,10 +1,13 @@
 from multiprocessing import context
 import random
+import re
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextForm, QuestionUpdateTypeForm, QuizForm
 from .models import Question
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
+from activities.views import chooseActivities
+
 
 # Create your views here.
 def createView(request):
@@ -19,7 +22,12 @@ def createView(request):
 
 def get_quiz(request):
     if request.method =="POST":
-        return HttpResponse("cv")
+        # Use data to get activity
+        print(request.POST)
+        return chooseActivities(request, socialScore = request.POST['answer1'],
+                        physicalScore= request.POST['answer2'], moneyScore=request.POST['answer3'])
+        
+        # return HttpResponse("cv")
 
     questions = Question.objects.all()
     type1 = questions.filter(qtype = 1)
@@ -40,7 +48,6 @@ def get_quiz(request):
  
     # add form dictionary to context
     context["form"] = form
-
     return render(request, "quizzes/quiz.html", context)
 
 def listView(request):
@@ -50,7 +57,6 @@ def listView(request):
          
     return render(request, "quizzes/readquestion.html", context)
 
-
 def questionsByType(request, qtype):
     context ={}
  
@@ -58,14 +64,12 @@ def questionsByType(request, qtype):
          
     return render(request, "quizzes/readquestion.html", context)
 
-
 def questionById(request, id):
     context ={}
  
     context["data"] = get_object_or_404(Question, id = id)
          
     return render(request, "quizzes/readquestion1.html", context)
-
 
 def deleteQuestionById(request, id):
     context ={}
@@ -96,7 +100,6 @@ def deleteAllQuestions(request):
         return HttpResponseRedirect("/") #return to home page
  
     return render(request, "quizzes/deleteQs.html", context)
-
 
 def updateText(request, id):
     context ={}
@@ -129,7 +132,6 @@ def updateType(request, id):
     context["form"] = form
  
     return render(request, "quizzes/updateQId.html", context)
-
 
 def updateQuestion(request, id):
     context ={}

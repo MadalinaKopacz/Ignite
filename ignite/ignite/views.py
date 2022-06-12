@@ -5,6 +5,11 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 
 def main(request):
-    url = "/accounts/login"
-    context = {"login_link" : url}
-    return render(request,"global/index.html", context=context)
+    context = {}
+    print(request.user)
+    if request.user.is_anonymous:
+        # make user register 😈
+        return render(request,"global/index.html", context=context)
+    else:
+        # when user is connected redirect to page
+        return HttpResponseRedirect("start_page/get")

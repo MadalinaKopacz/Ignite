@@ -45,6 +45,11 @@ class Activity(models.Model):
         return d1 < d2
 
 
+    
+    def __str__(self):
+        return u'{0}'.format(self.name + ' ' + self.description + ' ' + self.location)
+
+
 class Weather(models.Model):
     WEATHER_TYPES = [('sunny', 'sunny'),
                      ('cloudy', 'cloudy'), 

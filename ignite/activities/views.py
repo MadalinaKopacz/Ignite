@@ -5,7 +5,7 @@ from django.shortcuts import (get_object_or_404,
                              )
 from .models import Activity, ActivityScore
 from .forms import ActivityForm
-
+from start_page.views import get_temperature
 
 def create_activity(request):
     context = {}
@@ -81,7 +81,7 @@ def ordActivities(socialScore, physicalScore, moneyScore, weather):
                 dist += abs(physicalScore - actscore.score )
             elif actscore.type == "money":
                 dist += abs(moneyScore - actscore.score )
-        if elem.location_type == "outdoor" and weather == "cold":   #modify distance if the weather is bad
+        if elem.location_type == "outdoor" and weather == "rain":   #modify distance if the weather is bad
             dist += 2
         distancesList.append((dist, elem))
     distancesList.sort()
@@ -100,7 +100,6 @@ def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, c
     if counter > len(listActivity) - 1:
         counter = 0
     your_activity = listActivity[counter][1]
-    
     counter += 1
     context = {"counter":counter, 
                "activity": your_activity}
