@@ -10,6 +10,8 @@ class ActivityForm(forms.ModelForm):
             "name",
             "description",
             "location", 
-            "location_type"
+            "location_type",
+            "lon",
+            "lat"
         ]
 

@@ -4,8 +4,19 @@ from django.shortcuts import get_object_or_404, render
 from .forms import FriendRequests, addFriend, userCreate
 from .models import Friend_Request, User
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+import requests
 
-# Create your views here.
+from django.contrib.gis.geoip2 import GeoIP2
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def createView(request):
     context = {}
     form = userCreate(request.POST or None, request.FILES or None)
@@ -40,6 +51,34 @@ def updateView(request, username):
 
     context["form"] = form
     return render(request, "accounts/update.html", context)
+
+def update_location(request):
+    key = "9fa76c16db4ea6572cdc950e6ec3ed42"
+    current_user = request.user
+    current_user = get_object_or_404(User, username = current_user.username)
+    ip = '86.121.188.6' #get_client_ip(request)
+    print(ip)
+    
+    g = GeoIP2()
+    if ip:
+        city = g.city(ip)['city']
+    else:
+        city = 'Bucharest' 
+
+    url1 = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=5&appid={key}"
+
+    r1 = requests.get(url1).json()
+    lon = r1[0]["lon"]
+    lat = r1[0]["lat"]
+
+    print(lon)
+    print(lat)
+    current_user.lon = lon
+    current_user.lat = lat
+    current_user.save
+
+    return HttpResponse("Ok")
+
 
 
 def deleteView(request, username):
