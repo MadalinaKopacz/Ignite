@@ -3,7 +3,7 @@ from django.shortcuts import (get_object_or_404,
                               render,
                               HttpResponseRedirect
                              )
-from .models import Activity
+from .models import Activity, ActivityScore
 from .forms import ActivityForm
 
 
@@ -87,12 +87,22 @@ def ordActivities(socialScore, physicalScore, moneyScore, weather):
     distancesList.sort()
     return distancesList
 
-def chooseActivities(request, socialScore, physicalScore, moneyScore, contor=0):
+def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, counter):
     """
-    contor: the number of "regresh page"s
+    coutner: the number of "regresh page"s
     """
+    counter = int(counter)
+    socialScore = int(socialScore)
+    physicalScore = int(physicalScore)
+    moneyScore = int(moneyScore)
+
+    listActivity = ordActivities(socialScore, physicalScore, moneyScore, weather) 
+    if counter > len(listActivity) - 1:
+        counter = 0
+    your_activity = listActivity[counter][1]
     
-    listActivity = ordActivities(socialScore, physicalScore, moneyScore) 
-    context = {contor:contor, 
-               listActivity: listActivity}
-    return render(request, "chooseActivity.html", context)
+    counter += 1
+    context = {"counter":counter, 
+               "activity": your_activity}
+
+    return render(request, "global/your_activity.html", context)

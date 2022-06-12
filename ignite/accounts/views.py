@@ -158,3 +158,9 @@ def acceptFriendView(request, requestID):
     else:
         return HttpResponse("Request denied")
 
+@login_required
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect("../../")
+
