@@ -87,14 +87,21 @@ def ordActivities(socialScore, physicalScore, moneyScore, weather):
     distancesList.sort()
     return distancesList
 
-def chooseActivities(request, socialScore, physicalScore, moneyScore, contor=0):
+def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, counter):
     """
-    contor: the number of "refresh page"s
+    coutner: the number of "regresh page"s
     """
-    
-    weather = get_temperature(request)['description']
-    listActivity = ordActivities(socialScore, physicalScore, moneyScore, weather) 
-    context = {'contor':contor, 
-               'listActivity': listActivity}
+    counter = int(counter)
+    socialScore = int(socialScore)
+    physicalScore = int(physicalScore)
+    moneyScore = int(moneyScore)
 
-    return HttpResponse(listActivity[0][1])
+    listActivity = ordActivities(socialScore, physicalScore, moneyScore, weather) 
+    if counter > len(listActivity) - 1:
+        counter = 0
+    your_activity = listActivity[counter][1]
+    counter += 1
+    context = {"counter":counter, 
+               "activity": your_activity}
+
+    return render(request, "global/your_activity.html", context)
