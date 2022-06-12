@@ -5,7 +5,6 @@ import requests
 from django.contrib.gis.geoip2 import GeoIP2
 
 
-
 def get_time(request):
     current_datetime = datetime.now()  
     time = current_datetime.strftime("%I:%M %p")

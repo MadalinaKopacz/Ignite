@@ -19,6 +19,8 @@ class Activity(models.Model):
     description = models.TextField(max_length=200, blank=True)
     location = models.CharField(max_length=40)
     location_type = models.CharField(max_length=30, choices=LOCATION_TYPES, default='any')
+    lon = models.DecimalField(max_digits=10, decimal_places=5, default=0.0)
+    lat = models.DecimalField(max_digits=10, decimal_places=5, default=0.0)
 
 
     

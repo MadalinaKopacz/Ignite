@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 from django import forms
 from django.shortcuts import get_object_or_404
 from .models import Friend_Request, User
@@ -18,7 +19,6 @@ class userCreate(UserCreationForm):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Sign Up!', css_class='btn-secondary'))
 
-
 class addFriend(forms.Form):
     username = forms.CharField(max_length=100, label="Username",help_text="Enter your friends username" )
 
@@ -29,3 +29,22 @@ class FriendRequests(forms.Form):
         self.fields['requests'] = forms.ModelChoiceField(queryset= Friend_Request.objects.filter(to_user=current_user), to_field_name="id")
         
     fields = ('requests', )
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs = {
+                'placeholder': 'username or email',
+            }
+        )
+    )
+
+    password = forms.CharField(
+        label='', 
+        widget=forms.PasswordInput(
+            attrs = {
+                'placeholder': 'password'
+            }
+        )
+    )

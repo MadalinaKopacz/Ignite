@@ -1,12 +1,63 @@
 from multiprocessing import context
+import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .forms import FriendRequests, addFriend, userCreate
+from .forms import FriendRequests, addFriend, userCreate, LoginForm
 from .models import Friend_Request, User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout, authenticate, login
+import requests
 
-# Create your views here.
+from django.contrib.gis.geoip2 import GeoIP2
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+def update_location(request, user):
+    key = "9fa76c16db4ea6572cdc950e6ec3ed42"
+    current_user = get_object_or_404(User, username = user.username)
+    ip = '86.121.188.6' #get_client_ip(request)
+    
+    g = GeoIP2()
+    if ip:
+        city = g.city(ip)['city']
+    else:
+        city = 'Bucharest' 
+
+    url1 = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=5&appid={key}"
+
+    r1 = requests.get(url1).json()
+    lon = r1[0]["lon"]
+    lat = r1[0]["lat"]
+
+    current_user.lon = lon
+    current_user.lat = lat
+    current_user.save()
+
+    return 0
+
+
+def login_view(request):
+    context = {}
+    form = LoginForm(request.POST or None)
+
+    if request.method == "POST":
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
+            if user is not None:
+                update_location(request, user)
+                login(request=request, user=user)
+                return HttpResponseRedirect('/start_page/get/')
+    
+    context['form'] = form
+    return render(request, "accounts/login.html", context)
+
+
 def createView(request):
     context = {}
     form = userCreate(request.POST or None, request.FILES or None)
@@ -14,7 +65,7 @@ def createView(request):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-        return profile(request)
+            return HttpResponseRedirect("/accounts/login")
 
     if form.is_valid():
         form.save()
@@ -125,5 +176,6 @@ def acceptFriendView(request, requestID):
 @login_required
 def logout_view(request):
     logout(request)
+    # print("should be logged out")
     # Redirect to a success page.
     return HttpResponseRedirect("../../")
