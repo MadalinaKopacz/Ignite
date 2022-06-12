@@ -2,7 +2,7 @@ from multiprocessing import context
 import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .forms import FriendRequests, addFriend, userCreate, LoginForm
+from .forms import FriendRequests, addFriend, userCreate, LoginForm, UpdateUserForm
 from .models import Friend_Request, User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
@@ -80,13 +80,13 @@ def detailView(request, username):
 
     return render(request, 'accounts/detailView.html', context)
 
-
-def updateView(request, username):
+@login_required
+def updateView(request):
     context = {}
 
-    object = get_object_or_404(User, username = username)
+    object = get_object_or_404(User, username = request.user.username)
 
-    form = userCreate(request.POST or None, instance = object)
+    form = UpdateUserForm(request.POST or None, instance = object)
 
     if form.is_valid():
         form.save()
@@ -132,6 +132,9 @@ def findFriendsView(request):
 @login_required
 def addFriendView(request, to_user):
     from_user = request.user
+    
+    if from_user == to_user:
+        return HttpResponse("I dont think you're so lonely you're adding yourself as a friend...")
 
     form = addFriend()
 
@@ -155,16 +158,14 @@ def seeFriendRequests(request):
     form = FriendRequests(user=request.user.username)
 
     if request.method == "POST":
-        if form.is_valid():
-            id = form.cleaned_data.get('id')
-            return acceptFriendView(request, id)
+        id = request.POST['requests']
+        return acceptFriendView(request, id)
 
     return render(request, 'accounts/seeRequests.html', {'form':form})
 
 @login_required
 def acceptFriendView(request, requestID):
     friend_req = Friend_Request.objects.get(id=requestID)
-
     if friend_req.to_user == request.user:
         friend_req.to_user.friends.add(friend_req.from_user)
         friend_req.from_user.friends.add(friend_req.to_user)

@@ -6,4 +6,10 @@ from django.contrib.auth.decorators import login_required
 
 def main(request):
     context = {}
-    return render(request,"global/index.html", context=context)
+    print(request.user)
+    if request.user.is_anonymous:
+        # make user register 😈
+        return render(request,"global/index.html", context=context)
+    else:
+        # when user is connected redirect to page
+        return HttpResponseRedirect("start_page/get")

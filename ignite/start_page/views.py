@@ -41,6 +41,9 @@ def get_temperature(request):
     return city_weather
 
 def get_data(request):
+    if request.user.is_anonymous:
+        return render(request, "global/index.html")
+
     time = get_time(request)
     city_weather = get_temperature(request)
 
