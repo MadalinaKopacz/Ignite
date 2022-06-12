@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from .forms import FriendRequests, addFriend, userCreate
 from .models import Friend_Request, User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 
 # Create your views here.
 def createView(request):

@@ -57,7 +57,6 @@ def listView(request):
          
     return render(request, "quizzes/readquestion.html", context)
 
-
 def questionsByType(request, qtype):
     context ={}
  
@@ -65,14 +64,12 @@ def questionsByType(request, qtype):
          
     return render(request, "quizzes/readquestion.html", context)
 
-
 def questionById(request, id):
     context ={}
  
     context["data"] = get_object_or_404(Question, id = id)
          
     return render(request, "quizzes/readquestion1.html", context)
-
 
 def deleteQuestionById(request, id):
     context ={}
@@ -103,7 +100,6 @@ def deleteAllQuestions(request):
         return HttpResponseRedirect("/") #return to home page
  
     return render(request, "quizzes/deleteQs.html", context)
-
 
 def updateText(request, id):
     context ={}
@@ -136,7 +132,6 @@ def updateType(request, id):
     context["form"] = form
  
     return render(request, "quizzes/updateQId.html", context)
-
 
 def updateQuestion(request, id):
     context ={}
