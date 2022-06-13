@@ -6,6 +6,7 @@ class User(AbstractUser):
     profile_picture = models.ImageField(upload_to='uploads/')
     lon = models.DecimalField(max_digits=10, decimal_places=5, default=0.0)
     lat = models.DecimalField(max_digits=10, decimal_places=5, default=0.0)
+    streaks = models.IntegerField(default=0)
 
 
 class Friend_Request(models.Model):

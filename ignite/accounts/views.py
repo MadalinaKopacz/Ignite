@@ -41,6 +41,12 @@ def update_location(request, user):
 
     return 0
 
+def increment_streaks(request):
+    current_user = get_object_or_404(User, username = request.user.username)
+    current_user.streaks += 1
+    current_user.save()
+    return 0
+
 
 def login_view(request):
     context = {}
