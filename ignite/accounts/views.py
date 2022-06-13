@@ -2,10 +2,11 @@ from multiprocessing import context
 import re
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .forms import FriendRequests, addFriend, userCreate, LoginForm, UpdateUserForm
+from .forms import FriendRequests, addFriend, userCreate, LoginForm, UpdateUserForm, ChangePasswordForm
 from .models import Friend_Request, User
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 import requests
 
 from django.contrib.gis.geoip2 import GeoIP2
@@ -49,6 +50,9 @@ def increment_streaks(request):
 
 
 def login_view(request):
+    if not request.user.is_anonymous: # cnv deja conectat acceseaza
+        return HttpResponseRedirect('/start_page/get/')
+
     context = {}
     form = LoginForm(request.POST or None)
 
@@ -65,6 +69,8 @@ def login_view(request):
 
 
 def createView(request):
+    if not request.user.is_anonymous: # cnv deja conectat acceseaza
+        return HttpResponseRedirect('/start_page/get/')
     context = {}
     form = userCreate(request.POST or None, request.FILES or None)
 
@@ -84,7 +90,7 @@ def detailView(request, username):
     context = {}
     context["data"] = User.objects.get(username = username)
 
-    return render(request, 'accounts/detailView.html', context)
+    return render(request, 'accounts/profile.html', context)
 
 @login_required
 def updateView(request):
@@ -96,11 +102,28 @@ def updateView(request):
 
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect("../detailView/" + object.username)
-
+        return HttpResponseRedirect("../profile/")
+    
     context["form"] = form
     return render(request, "accounts/update.html", context)
 
+@login_required
+def changePasswordView(request):
+    context = {}
+
+    form = PasswordChangeForm(user=request.user, data=request.POST or None)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return render(request, 'accounts/profile.html', context)
+
+        else:
+            context['error'] = "Passwords don't match."
+    
+    context["form"] = form
+    return render(request, "accounts/changepassword.html", context)
 
 def deleteView(request, username):
     context = {}
@@ -113,6 +136,16 @@ def deleteView(request, username):
     return render(request, "accounts/deleteView.html", context)
 
 @login_required
+def getFriends(request):
+    context = {}
+
+    user = request.user
+    context["data"] = user
+    context["friends"] = user.friends.all()
+
+    return render(request, 'accounts/profile.html', context)
+
+@login_required
 def profile(request):
     context = {}
 
@@ -120,7 +153,7 @@ def profile(request):
     context["data"] = user
     context["friends"] = user.friends.all()
 
-    return render(request, 'accounts/detailView.html', context)
+    return render(request, 'accounts/profile.html', context)
 
 
 @login_required
@@ -130,34 +163,40 @@ def findFriendsView(request):
     if request.method == "POST":
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            to_user = User.objects.get(username=username)
-            return addFriendView(request, to_user)
+            try:
+                to_user = User.objects.get(username=username)
+                if request.user == to_user:
+                    return render(request, "accounts/findFriends.html", {"form": form, "error":"I dont think you're so lonely you're adding yourself as a friend..."})
+                elif to_user in request.user.friends.all():
+                    return render(request, "accounts/findFriends.html", {"form": form, "error":"Already friends"})
+
+                return addFriendView(request, to_user)
+            except:
+                return render(request, "accounts/findFriends.html", {"form": form, "error":"No user with that username"})
+
 
     return render(request, "accounts/findFriends.html", {"form": form})
 
 @login_required
 def addFriendView(request, to_user):
     from_user = request.user
-    
-    if from_user == to_user:
-        return HttpResponse("I dont think you're so lonely you're adding yourself as a friend...")
 
     form = addFriend()
 
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect("../detailView/" + object.username)
+        return HttpResponseRedirect("../profile/")
 
     if to_user == None:
-        return HttpResponse("Invalid")
+        return render(request, "accounts/findFriends.html", {"form": form, "error":"Invalid"})
     
     friend_req, created = Friend_Request.objects.get_or_create(from_user=from_user, 
     to_user = to_user)
 
     if created:
-        return HttpResponse("Request sent")
+        return render(request, "accounts/findFriends.html", {"form": form, "error":"Request sent."})
     else:
-        return HttpResponse("A request already exists")
+        return render(request, "accounts/findFriends.html", {"form": form, "error":"A request already exists."})
     
 @login_required
 def seeFriendRequests(request):
@@ -165,7 +204,7 @@ def seeFriendRequests(request):
 
     if request.method == "POST":
         id = request.POST['requests']
-        return acceptFriendView(request, id)
+        return render(request, 'accounts/seeRequests.html', {'form':form, 'error': acceptFriendView(request, id)})
 
     return render(request, 'accounts/seeRequests.html', {'form':form})
 
@@ -176,9 +215,9 @@ def acceptFriendView(request, requestID):
         friend_req.to_user.friends.add(friend_req.from_user)
         friend_req.from_user.friends.add(friend_req.to_user)
         friend_req.delete()
-        return HttpResponse("Request accepted")
+        return "Request accepted"
     else:
-        return HttpResponse("Request denied")
+        return "Request denied"
 
 @login_required
 def logout_view(request):
