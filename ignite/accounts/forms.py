@@ -19,6 +19,11 @@ class userCreate(UserCreationForm):
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Sign Up!', css_class='btn-secondary'))
 
+class ChangePasswordForm(forms.Form):
+    old_password=forms.PasswordInput()
+    new_password=forms.PasswordInput()
+    reenter_password=forms.PasswordInput()
+
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100,
                                required=False,

@@ -13,7 +13,7 @@ def validate_score(score):
 # models 
 class Activity(models.Model):
     LOCATION_TYPES = [('indoor','indoor'), 
-                      ('outdooor', 'outdoor'),
+                      ('outdoor', 'outdoor'),
                       ('any', 'any')]
 
     name = models.CharField(max_length=50)
