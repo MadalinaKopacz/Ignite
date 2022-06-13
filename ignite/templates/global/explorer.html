@@ -11,8 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style type="text/css">
         #map {
-            height: 100%;
+            position: relative;
+            height: 90% !important;
             width: 100%;
+            z-index: -50;
         }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +23,10 @@
   <title>Ignite</title>
 </head>
 
-<body style="background-color: #FFEEC4"  id="map">
+<body style="background-color: #FFEEC4">
+    <img style="height: 60px; top:10px; margin-left:45%; margin-bottom:10px; position:relative" src="{% static 'global_images/logo.png' %}" />
+    <div style="height: 100%; width:100%; position:absolute" id="map"></div>
+    <a style = "position:absolute; top:90%; margin-left:-50%; box-sizing:content-box" href="{% url 'start_page:get_start_page' %}" class="btn btn-lg btn-secondary mb-3">Go to home page</a>
     <script 
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyariNg9tgX0GBtdB2I_syXBuiN3BOBNs&callback=initMap&libraries=&v=weekly" async>
     </script>
@@ -40,11 +45,27 @@
                 center: coords,
             });
 
+            var first_name = "{{user.first_name}}"
+            var last_name = "{{user.last_name}}"
             new google.maps.Marker({
                 position: map.getCenter(),
                 map: map,
-                icon: "../../" + '{{user.profile_picture}}'
+                label: first_name[0] + last_name[0]
                 });
+
+            const friends = "{{friends}}"
+                for(const friend of friends){
+                    var f_name = friend.first_name
+                    var l_name = friend.last_name
+                    new google.maps.Marker({
+                        position: map.getCenter(),
+                        map: map,
+                        label: f_name[0] + l_name[0]
+                        });
+                }
             }
             </script>
+
+            
+    
 </body>

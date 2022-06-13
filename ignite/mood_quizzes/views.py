@@ -7,7 +7,7 @@ from .forms import QuestionCreateForm, QuestionUpdateForm, QuestionUpdateTextFor
 from .models import Question
 from django.shortcuts import get_object_or_404, HttpResponseRedirect
 from activities.views import chooseActivities
-
+from start_page.views import get_temperature
 
 # Create your views here.
 def createView(request):
@@ -21,11 +21,12 @@ def createView(request):
     return render(request, "quizzes/createquestion.html", context)
 
 def get_quiz(request):
+    temp = get_temperature(request)["description"]
     if request.method =="POST":
         # Use data to get activity
         print(request.POST)
         return chooseActivities(request, socialScore = request.POST['answer1'],
-                        physicalScore= request.POST['answer2'], moneyScore=request.POST['answer3'])
+                        physicalScore= request.POST['answer2'], moneyScore=request.POST['answer3'], weather=temp, counter=0)
         
         # return HttpResponse("cv")
 
