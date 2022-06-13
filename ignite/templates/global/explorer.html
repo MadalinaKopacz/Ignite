@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="w-100 h-100">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style type="text/css">
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <title>Ignite</title>
+</head>
+
+<body style="background-color: #FFEEC4"  id="map">
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyariNg9tgX0GBtdB2I_syXBuiN3BOBNs&callback=initMap&libraries=&v=weekly" async>
+    </script>
+          
+    <script>
+        function initMap() {
+            const coords = {
+                lat: parseFloat("{{lat}}"),
+                lng: parseFloat("{{lon}}")
+            };
+          
+            const map = new google.maps.Map(
+                document.getElementById("map"), {
+          
+                zoom: 17.56,
+                center: coords,
+            });
+
+            new google.maps.Marker({
+                position: map.getCenter(),
+                map: map,
+                icon: "../../" + '{{user.profile_picture}}'
+                });
+            }
+            </script>
+</body>

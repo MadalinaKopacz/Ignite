@@ -3,56 +3,125 @@
 <html lang="en" class="w-100 h-100">
 
 <head>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <style type="text/css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style type="text/css">
 
-    #map {
-        height: 400px;
-        width: 400px;
-    }
+        #map {
+            height: 400px;
+            width: 400px;
+        }
       
-    h2 {
-        color: #308d46;
-    }
-</style>
+        h1, h2, h3, h4, h5, p, em{
+            font-family: 'Roboto', sans-serif !important;
+        }
 
+        h2 {
+            color: #308d46;
+        }
+        
+        h2, h4, h5{
+            font-weight: normal !important;
+        }
+
+        #container{
+            position:relative;
+            width:60%;
+            box-sizing:border-box;
+            margin:auto;
+            align-items:center;
+            justify-content:center;
+            margin-top: 20px;
+        }
+
+        #fcell{
+            height: 400px;
+            width: 400px;
+            border-style: solid;
+            border-color: #F09078;
+            background-color: #F09078;
+            padding: 10px 10px 10px 10px;
+        }
+
+        #buttons{
+            position:relative;
+            box-sizing:border-box;
+            margin:auto;
+            align-items:center;
+            justify-content:center;
+        }
+
+        #buttons > *{
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+
+        #desc{
+            margin-left: 10px;
+            margin-top: 15px;
+        }
+        
+        #txt{
+            margin-left: 25px;
+        }
+
+        #loc{
+            margin-left: 100px;
+            margin-top: 65%;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <title>Ignite</title>
 </head>
 
-<body class="w-100 h-100" style="background-color: #FFEEC4">
+<body style="background-color: #FFEEC4">
+    <img style="height: 60px; margin: 20px auto auto 25px" src="{% static 'global_images/logo.png' %}" />
     <div class="main">
-     
-        <p>{{ activity.name }}<p/>
-        <p>{{ activity.description }}<p><br/>
-        <div id="map"></div>
+        <h1 class="text-center">Igntie your world!</h1>
+        <h2 class="text-center" id="q">Have you tried <em>{{ activity.name }}</em> today?<h2/>
+        <div class="d-flex" id="container">
+        <div id="fcell">
+            <h3 id = "desc">Activity description:</h3>
+            <h4 id = "txt">{{ activity.description }}</h4>
+            <h3 id = "loc">Suggested location:</h3>
+        </div>
+        <div id="map" class="d-flex flex-sm-row"></div>
             <script 
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyariNg9tgX0GBtdB2I_syXBuiN3BOBNs&callback=initMap&libraries=&v=weekly" async>
             </script>
           
             <script>
                 function initMap() {
-                    const gfg_office = {
+                    const coords = {
                         lat: parseFloat("{{activity.lat}}"),
                         lng: parseFloat("{{activity.lon}}")
                     };
-          
+
                     const map = new google.maps.Map(
                             document.getElementById("map"), {
           
                         zoom: 17.56,
-                        center: gfg_office,
+                        center: coords,
                     });
 
                     new google.maps.Marker({
                         position: map.getCenter(),
-                        map: map,
+                        map: map
                       });
                 }
             </script>
+        </div>
     </div>
-    <div>
+    <br/>
+    <div id="buttons" class="d-flex"> 
+        <a href="{% url 'start_page:get_start_page' %}" class="btn btn-lg btn-secondary mb-3">Go to home page</a>
         <a href="{% url 'activities:choose_activity' socialScore=1 physicalScore=1 moneyScore=1 weather="sunny" counter=counter %}" class="btn btn-lg btn-secondary mb-3">Change activity</a>
+        <a href="{% url 'activities:explorer' lon=activity.lon lat=activity.lat %}" class="btn btn-lg btn-secondary mb-3">Start activity!</a> 
     </div>
 </body>

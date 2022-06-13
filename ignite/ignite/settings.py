@@ -87,7 +87,11 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
+<<<<<<< HEAD
         'PASSWORD': 'madalina',
+=======
+        'PASSWORD': '113045Dorianm@',
+>>>>>>> 5bbfdd9ddea95fe7a862a76816b2bf7daf90b592
     }
 }
 
