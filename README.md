@@ -32,3 +32,5 @@ Ignite your good mood, ignite your free time!
  
 ![uml drawio](https://user-images.githubusercontent.com/79279298/171692554-9e6a2869-ef6d-42e0-9d44-2e4c34c670a9.png)
 
+## Diagramă ERD
+![erd drawio](https://i.imgur.com/ycKPYAJ.png)
