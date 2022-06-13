@@ -6,7 +6,7 @@ from django.shortcuts import (get_object_or_404,
 from .models import Activity, ActivityScore
 from .forms import ActivityForm
 from start_page.views import get_temperature
-from accounts.views import increment_streaks
+from accounts.views import increment_streaks, getFriends
 
 def create_activity(request):
     context = {}
@@ -112,6 +112,8 @@ def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, c
 
 def start_activity(request, lat, lon):
     context = {"lat":lat, "lon":lon, "user":request.user}
+    friends = getFriends(request)
+    context["friends"] = friends
     increment_streaks(request)
     return render(request, "global/explorer.html", context)
 

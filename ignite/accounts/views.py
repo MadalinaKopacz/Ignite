@@ -225,3 +225,12 @@ def logout_view(request):
     # print("should be logged out")
     # Redirect to a success page.
     return HttpResponseRedirect("../../")
+
+def getFriends(request):
+    context = {}
+
+    user = request.user
+    context["data"] = user
+    context["friends"] = user.friends.all()
+
+    return context
