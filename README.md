@@ -28,6 +28,13 @@ Ignite your good mood, ignite your free time!
 
  **User Story 10** (Professional gamer): „Fiind nevoit să petrec atât de mult timp în fața calculatorului, am nevoie de ceva care să mă deconecteze. Însă mă plictisesc repede și aș avea nevoie și de ceva care să mă facă să intru mai des pe aplicație, poate chiar și un reward ca să mă laud în fața prietenilor, spre exemplu ceva asemănător cu streak-urile de la jocuri.”
  
+ 
+ ## Backlog creation
+ 
+ Pentru backlog am utilizat Jira.
+ ![image](https://user-images.githubusercontent.com/79279298/173638841-67477061-722f-4659-aceb-7ac6e46c9c10.png)
+
+ 
  ## Diagramă UML
  
 ![uml drawio](https://user-images.githubusercontent.com/79279298/171692554-9e6a2869-ef6d-42e0-9d44-2e4c34c670a9.png)
