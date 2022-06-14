@@ -6,7 +6,8 @@ from django.shortcuts import (get_object_or_404,
 from .models import Activity, ActivityScore
 from .forms import ActivityForm
 from start_page.views import get_temperature
-from accounts.views import increment_streaks, getFriends
+from accounts.views import increment_streaks, getListFriends
+from json import dumps
 
 def create_activity(request):
     context = {}
@@ -110,10 +111,32 @@ def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, c
 
     return render(request, "global/your_activity.html", context)
 
+
+def explore(request):
+    print(request.user.lat)
+    print(request.user.lon)
+    context = {"lat":request.user.lat, "lon": request.user.lon, "user":request.user}
+    # friends = getListFriends(request)
+    # send_friends(request)
+    data_json = send_friends(request)
+    context["friends"] = data_json
+    # increment_streaks(request)
+    return render(request, "global/explorer.html", context)
+
+
 def start_activity(request, lat, lon):
     context = {"lat":lat, "lon":lon, "user":request.user}
-    friends = getFriends(request)
-    context["friends"] = friends
+    friends = getListFriends(request)
+    # send_friends(request)
+    data_json = send_friends(request)
+    context["friends"] = data_json
     increment_streaks(request)
     return render(request, "global/explorer.html", context)
 
+def send_friends(request):
+    friends = getListFriends(request)
+    package = {}
+    for i in range(len(friends)):
+        package[i] = [friends[i].last_name, friends[i].first_name, str(friends[i].lat), str(friends[i].lon)]
+
+    return dumps(package)

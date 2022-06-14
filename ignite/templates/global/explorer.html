@@ -53,16 +53,18 @@
                 label: first_name[0] + last_name[0]
                 });
 
-            const friends = "{{friends}}"
-                for(const friend of friends){
-                    var f_name = friend.first_name
-                    var l_name = friend.last_name
-                    new google.maps.Marker({
-                        position: map.getCenter(),
-                        map: map,
-                        label: f_name[0] + l_name[0]
-                        });
-                }
+            const friends = JSON.parse("{{friends|escapejs}}");
+
+            for(const [ key, value ] of Object.entries(friends)){
+                console.log(value)
+                var f_name = value[1]
+                var l_name = value[0]
+                new google.maps.Marker({
+                    position: {lat:parseFloat(value[2]), lng:parseFloat(value[3])},
+                    map: map,
+                    label: f_name[0] + l_name[0]
+                    });
+            }
             }
             </script>
 
