@@ -32,7 +32,7 @@ Ignite your good mood, ignite your free time!
  ## Backlog creation
  
  Pentru backlog am utilizat Jira.
- ![image](https://user-images.githubusercontent.com/79279298/173638841-67477061-722f-4659-aceb-7ac6e46c9c10.png)
+ ![image](https://user-images.githubusercontent.com/79279298/173641082-c8653e2f-1335-4e3c-9da2-144faf6974dd.png)
 
  
  ## Diagramă UML
