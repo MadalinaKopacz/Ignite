@@ -164,7 +164,9 @@ Pentru a crea proiectul am utilizat comanda `django-admin startproject ignite` �
 Mai mult, am utilizat și venv ca virtual environment pentru a putea ține evidența librăriilor pe care le-am utilizat.
 
 
-## Refactoring & code standards
+## Refactoring & Code standards
 
 
 ## Design patterns
+
+Am utilizat design patternul Model-View-Template (MVT) specific Djangoului. Modelele gestionează datele și este reprezentată de baza noastră de date, un model reprezentând o tabelă din baza de date. Un view primește cereri HTTP și trimite răspuri HTML, interacționând cu un model și un template pentru a finaliza un răspuns. Template-ul conține componenta HTML-ul dinamică a aplicației. 
