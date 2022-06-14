@@ -35,9 +35,12 @@ Ignite your good mood, ignite your free time!
  ![image](https://user-images.githubusercontent.com/79279298/173641082-c8653e2f-1335-4e3c-9da2-144faf6974dd.png)
 
  
- ## Diagramă UML
+## Diagramă UML
  
 ![uml drawio](https://user-images.githubusercontent.com/79279298/171692554-9e6a2869-ef6d-42e0-9d44-2e4c34c670a9.png)
+
+## Diagramă ERD
+![erd drawio](https://i.imgur.com/ycKPYAJ.png)
 
 
 ## Source control
@@ -51,5 +54,100 @@ Merge-urile pot fi observate [aici](https://github.com/MadalinaKopacz/Ignite/pul
 ### Commits
 Commiturile se află [aici](https://github.com/MadalinaKopacz/Ignite/commits/main).
 
-## Diagramă ERD
-![erd drawio](https://i.imgur.com/ycKPYAJ.png)
+
+## Teste automate
+Avem un total de 8 teste automate de tip unit, implementate prin întermediul claselor:
+1. AccountsTest
+
+   ```
+   class AccountsTest(TestCase):
+    def setUp(self):
+        test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
+        test_user1.save()
+
+    def test_logged_in_uses_correct_template(self):
+        login = self.client.login(username='testuser1', password='1X<ISRUkw+tuK')
+        response = self.client.get(reverse('start_page:get_start_page'))
+
+        self.assertEqual(str(response.context['user']), 'testuser1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'global/start_page.html')
+    ```
+
+    Prin intermediul metodei `test_logged_in_uses_correct_template` am testat dacă aplicația nu are erori la logarea unui user și dacă utilizează template-ul corect.
+
+
+2. ActivitiesModelsTest
+
+    ```
+    class ActivitiesModelsTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Activity.objects.create(name = 'reading a book?', description = 'Choose a book from your library and read it!', location = 'at home', location_type = 'indoor', lon = 0, lat = 0)
+        
+
+    def test_name_label(self):
+        activity = Activity.objects.get(id =1)
+        field_label = activity._meta.get_field('name').verbose_name
+        self.assertEqual(field_label, 'name')
+    
+    def test_location_type_default(self):
+        activity = Activity.objects.get(id =1)
+        value = activity._meta.get_field('location_type').default
+        self.assertEqual(value, 'any')
+
+    def test_lon_max_lenght(self):
+        activity = Activity.objects.get(id=1)
+        max_length = activity._meta.get_field('lon').max_digits
+        self.assertEqual(max_length, 10)
+    ```
+
+    În cadrul acestei clase am testat corectitudinea implementării modelului Activities. Prin intermediul metodei `test_name_label` am testat dacă labelul corespunzător câmpului "name" este corect. În cadrul `test_location_type_default` am verificat ca valoarea default a câmpului location_type să fie mereu "any". Prin `test_lon_max_lenght` verificăm ca numărul maxim de cifre pe care îl pot avea valorile câmpului `lon` să fie maxim 10.
+
+
+3. QuizTest
+
+   ```
+   class QuizTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        for q_id in range(10):
+            Question.objects.create(title=f'{q_id}',text=f'Text {q_id}',qtype = q_id%3+1)
+
+
+    def test_qtype_options(self):
+        form = QuestionCreateForm()
+        choices = form.fields['qtype'].choices
+        self.assertEqual(choices, [('', '---------'), (1, 'Social'), (2, 'Physical'), (3, 'Money')])
+        
+    def test_text_max_length(self):
+        textTest = 'a'*301
+        form = QuestionCreateForm(data={'qtype': 1, 'text': textTest})
+        self.assertFalse(form.is_valid())
+        textTest = 'a'*300
+        form1 = QuestionCreateForm(data={'qtype': 1, 'text': textTest})
+        self.assertTrue(form1.is_valid())
+        textTest = 'a'*150
+        form2 = QuestionCreateForm(data={'qtype': 1, 'text': textTest})
+        self.assertTrue(form2.is_valid())
+
+
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/mood_quizzes/createQuestion/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('mood_quizzes:quiz'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'quizzes/quiz.html')
+   
+   ```
+        
+   În cadrul acestei clase am testat corectitudinea implementării formularului și a view-urilor. Prin intermediul `test_qtype_options` verificăm ca formularul să aibă pentru itemul qtype câmpul vid în cazul în care nicio opțiune nu a fost aleasă și cele trei opțiuni ale tipurilor de întrebări ('Social', Physical' și 'Money'). În cadrul `test_text_max_length` testăm ca șirurile de caractere primite în cadrul itemului textt din formular să nu aiba mai mult de 300 de caractere. `test_view_url_exists_at_desired_location` testează ca url-ul formularului de creare de întrebări să fie la locația dorită, iar `test_view_uses_correct_template` testează corectitudinea template-ului folosit.
+   
+   
+   Rularea testelor se face prin comanda `python manage.py test` scrisă în terminal, iar rezultatul acesteia în cadrul proiectului nostru este:
+   ![image](https://user-images.githubusercontent.com/79279298/173663150-090ccf3e-825e-4f73-82c4-18c94ef42384.png)
+
+
+
