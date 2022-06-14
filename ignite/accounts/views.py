@@ -48,6 +48,9 @@ def increment_streaks(request):
     current_user.save()
     return 0
 
+@login_required
+def getStreaks(request):
+    return get_object_or_404(User, username = request.user.username).streaks
 
 def login_view(request):
     if not request.user.is_anonymous: # cnv deja conectat acceseaza
@@ -226,11 +229,5 @@ def logout_view(request):
     # Redirect to a success page.
     return HttpResponseRedirect("../../")
 
-def getFriends(request):
-    context = {}
-
-    user = request.user
-    context["data"] = user
-    context["friends"] = user.friends.all()
-
-    return context
+def getListFriends(request):
+    return request.user.friends.all()

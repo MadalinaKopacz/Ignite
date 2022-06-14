@@ -31,7 +31,7 @@ class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(required=False,
                              widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    profile_picture = forms.FileField(required=False)
+    profile_picture = forms.ImageField(required=False)
 
     class Meta:
         model = User
