@@ -150,4 +150,21 @@ Avem un total de 8 teste automate de tip unit, implementate prin întermediul cl
    ![image](https://user-images.githubusercontent.com/79279298/173663150-090ccf3e-825e-4f73-82c4-18c94ef42384.png)
 
 
+## Bug reporting
 
+1. Variabilele din context în Django sunt date ca șiruri de caractere, iar în funcția de inițializare a hărții unde aveam nevoie de valorile longitudinii și latitudinii ca numere reale, preluam variabilele din context fără conversie, rezultând într-un bug. Pentru a rezolva problema am făcut conversie la float.
+
+2. Pagina de Login redirectiona la pagina de create user (Signup), iar cea de Logout redirectiona inapoi de Login în loc de prima pagină (cu Login/Signup). Pentru a rezolva bugul, am schimbat login url-ul și redirecționările. 
+
+
+## Build tool
+
+Pentru a crea proiectul am utilizat comanda `django-admin startproject ignite` în terminal. Această comandă creează un director care conține fișierul manage.py și un director care conține fișierul de inițializare și fișierele settings.py, urls.py, asgi.py și wsgi.py. Pentru a crea fiecare app am folosit comenzi precum `python manage.py startapp accounts` care creează câte un director pentru fiecare app, conținănd fișierul de inițializare, apps.py, folderul de migrations și fișierele models.py, tests.py și views.py. 
+
+Mai mult, am utilizat și venv ca virtual environment pentru a putea ține evidența librăriilor pe care le-am utilizat.
+
+
+## Refactoring & code standards
+
+
+## Design patterns
