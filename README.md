@@ -39,5 +39,17 @@ Ignite your good mood, ignite your free time!
  
 ![uml drawio](https://user-images.githubusercontent.com/79279298/171692554-9e6a2869-ef6d-42e0-9d44-2e4c34c670a9.png)
 
+
+## Source control
+### Branch creation
+Branch-urile create de noi pot fi [găsite aici](https://github.com/MadalinaKopacz/Ignite/branches).
+Am utilizat 4 branch-uri, Main ca branch default și câte un branch pentru fiecare membru al echipei pentru a putea monotoriza activitatea fiecărui
+
+### Merge
+Merge-urile pot fi observate [aici](https://github.com/MadalinaKopacz/Ignite/pulls?q=is%3Apr+is%3Aclosed), în cadrul pull requesturilor închise.
+
+### Commits
+Commiturile se află [aici](https://github.com/MadalinaKopacz/Ignite/commits/main).
+
 ## Diagramă ERD
 ![erd drawio](https://i.imgur.com/ycKPYAJ.png)
