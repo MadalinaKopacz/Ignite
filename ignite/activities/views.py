@@ -91,7 +91,7 @@ def ordActivities(socialScore, physicalScore, moneyScore, weather):
 
 def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, counter):
     """
-    coutner: the number of "regresh page"s
+    counter: the number of "regresh page"s
     """
     counter = int(counter)
     socialScore = int(socialScore)
@@ -102,12 +102,18 @@ def chooseActivities(request, socialScore, physicalScore, moneyScore, weather, c
     if counter > len(listActivity) - 1:
         counter = 0
     your_activity = listActivity[counter][1]
-    if your_activity.location_type == "indoor":
+    if your_activity.location_type == "indoor" or your_activity.location_type == "any":
         your_activity.lat = 44.441503
         your_activity.lon = 26.016553
+        print(your_activity.lat)
     counter += 1
     context = {"counter":counter, 
-               "activity": your_activity}
+               "activity": your_activity,
+               "socialscore":socialScore,
+               "physicalscore":physicalScore,
+               "moneyscore":moneyScore,
+               "weather":weather
+               }
 
     return render(request, "global/your_activity.html", context)
 

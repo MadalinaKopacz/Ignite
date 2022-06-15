@@ -43,7 +43,7 @@ def get_quiz(request):
     context = {'q1':type1[random.randint(0, n1-1)],
                 'q2':type2[random.randint(0, n2-1)],
                 'q3':type3[random.randint(0, n3-1)]}
-
+    
      # pass the object as instance in form
     form = QuizForm()
  

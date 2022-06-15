@@ -5,62 +5,67 @@
 <html lang="en" class="w-100 h-100">
 
 <head>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <style>
-        *{list-style-type:none !important}
+        * {
+            list-style-type: none !important
+        }
     </style>
-  <title>Ignite</title>
+    <title>Ignite</title>
 </head>
 
-<body class="w-100 h-100" style="background-image:url('../../static/global_images/background.png'); background-size: cover;">
-    <img style="height: 7%; margin: 15px auto auto 20px" src="{% static 'global_images/logo.png' %}" />
+<body class="w-100 h-100"
+    style="background-image:url('../../static/global_images/background.png'); background-size: cover;">
+    <a href="{% url 'start_page:get_start_page' %}"><img style="height: 7%; margin: 15px auto auto 20px"
+            src="{% static 'global_images/logo.png' %}" /></a>
 
     <div class="mt-5 pb-5 container">
         <div class="row justify-content-center">
             <div class="pl-3 pr-3 col-8">
                 <div style="background-color: #FFFBFD;" class="card">
                     <div class="ml-3 mr-3 mb-3 card-body">
-                    <h1 class="mt-1 text-center">Let's see...</h1>
-                    <br>
-                    {% if error %}
-                    <p>{{ error }}</p>
-                    {% endif %}
-                    <form method="POST" enctype="multipart/form-data">
-                        <!-- Security token -->
-                        {% csrf_token %}
-                        <div>
-                            <p style="font-weight:500; font-family: 'Roboto', sans-serif;">{{ q1 }}</p>
-                            {{ form.answer1 }}
-                        </div>
-                    
-                        <div>
-                            <p style="font-weight:500; font-family: 'Roboto', sans-serif;">{{ q2 }}</p>
-                            {{ form.answer2 }}
-                        </div>
-                    
-                        <div>
-                            <p style="font-weight:500; font-family: 'Roboto', sans-serif;">{{ q3 }}</p>
-                            {{ form.answer3 }}
-                        </div>
-                    
+                        <h1 class="mt-1 text-center">Let's see...</h1>
                         <br>
-                        <input type="submit" class="btn btn-secondary" value="Continue">
-                        <input type="hidden" name="next" value="{{ next }}">
-                    </form>
+                        {% if error %}
+                        <p>{{ error }}</p>
+                        {% endif %}
+                        <form method="POST" enctype="multipart/form-data">
+                            <!-- Security token -->
+                            {% csrf_token %}
+                            <div>
+                                <p style="font-weight:500; font-family: 'Roboto', sans-serif;">{{ q1 }}</p>
+                                {{ form.answer1 }}
+                            </div>
+
+                            <div>
+                                <p style="font-weight:500; font-family: 'Roboto', sans-serif;">{{ q2 }}</p>
+                                {{ form.answer2 }}
+                            </div>
+
+                            <div>
+                                <p style="font-weight:500; font-family: 'Roboto', sans-serif;">{{ q3 }}</p>
+                                {{ form.answer3 }}
+                            </div>
+
+                            <br>
+                            <input type="submit" class="btn btn-secondary" value="Continue">
+                            <input type="hidden" name="next" value="{{ next }}">
+                        </form>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 
 
-</div>  
+    </div>
 
 </body>
 
