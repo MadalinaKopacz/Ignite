@@ -46,7 +46,7 @@ Ignite your good mood, ignite your free time!
 ## Source control
 ### Branch creation
 Branch-urile create de noi pot fi [găsite aici](https://github.com/MadalinaKopacz/Ignite/branches).
-Am utilizat 4 branch-uri, Main ca branch default și câte un branch pentru fiecare membru al echipei pentru a putea monotoriza activitatea fiecărui
+Am utilizat 4 branch-uri, Main ca branch default și câte un branch pentru fiecare membru al echipei pentru a putea monotoriza activitatea fiecăruia.
 
 ### Merge
 Merge-urile pot fi observate [aici](https://github.com/MadalinaKopacz/Ignite/pulls?q=is%3Apr+is%3Aclosed), în cadrul pull requesturilor închise.
@@ -143,7 +143,7 @@ Avem un total de 8 teste automate de tip unit, implementate prin întermediul cl
    
    ```
         
-   În cadrul acestei clase am testat corectitudinea implementării formularului și a view-urilor. Prin intermediul `test_qtype_options` verificăm ca formularul să aibă pentru itemul qtype câmpul vid în cazul în care nicio opțiune nu a fost aleasă și cele trei opțiuni ale tipurilor de întrebări ('Social', Physical' și 'Money'). În cadrul `test_text_max_length` testăm ca șirurile de caractere primite în cadrul itemului textt din formular să nu aiba mai mult de 300 de caractere. `test_view_url_exists_at_desired_location` testează ca url-ul formularului de creare de întrebări să fie la locația dorită, iar `test_view_uses_correct_template` testează corectitudinea template-ului folosit.
+   În cadrul acestei clase am testat corectitudinea implementării formularului și a view-urilor. Prin intermediul `test_qtype_options` verificăm ca formularul să aibă pentru itemul qtype câmpul vid în cazul în care nicio opțiune nu a fost aleasă și cele trei opțiuni ale tipurilor de întrebări ('Social', Physical' și 'Money'). În cadrul `test_text_max_length` testăm ca șirurile de caractere primite în cadrul itemului text din formular să nu aiba mai mult de 300 de caractere. `test_view_url_exists_at_desired_location` testează ca url-ul formularului de creare de întrebări să fie la locația dorită, iar `test_view_uses_correct_template` testează corectitudinea template-ului folosit.
    
    
    Rularea testelor se face prin comanda `python manage.py test` scrisă în terminal, iar rezultatul acesteia în cadrul proiectului nostru este:
