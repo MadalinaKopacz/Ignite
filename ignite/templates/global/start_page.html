@@ -7,13 +7,15 @@
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
   <title>Ignite</title>
 </head>
 
-<body class="w-100 h-100" style="background-image:url('../../static/global_images/background.png'); background-size: cover;">
+<body class="w-100 h-100"
+  style="background-image:url('../../static/global_images/background.png'); background-size: cover;">
   <div class="d-flex flex-column justify-content-center align-items-center">
     <div style="height:100px">
 
@@ -25,14 +27,17 @@
       <h1 style="font-family: 'Roboto', sans-serif;" class="display-4">{{ time }}</h1>
     </div>
     <div class="d-flex flex-column justify-content-center align-items-center">
-        {% if streaks == 0 %}
-        <p style="font-size:1.6em; font-weight:500; font-family: 'Roboto', sans-serif;"> Take the quiz to get an activity! </p>
-        {% else %}
-        <p style="color: #fc4961;font-size:1.6em; font-weight:900; font-family: 'Roboto', sans-serif;"> {{streaks}} activities! You're on fire!</p>
-        {% endif %}
-        <img src="{{ weather.icon }}">
-        <p style="font-size:1.2em; font-weight:500; font-family: 'Roboto', sans-serif;"> {{ weather.temperature.0 }} K / {{weather.temperature.1 }} C / {{ weather.temperature.2 }} F</p>
-        <p></p>
+      {% if streaks == 0 %}
+      <p style="font-size:1.6em; font-weight:500; font-family: 'Roboto', sans-serif;"> Take the quiz to get an activity!
+      </p>
+      {% else %}
+      <p style="color: #fc4961;font-size:1.6em; font-weight:900; font-family: 'Roboto', sans-serif;"> {{streaks}}
+        activities! You're on fire!</p>
+      {% endif %}
+      <img src="{{ weather.icon }}">
+      <p style="font-size:1.2em; font-weight:500; font-family: 'Roboto', sans-serif;"> {{ weather.temperature.0 }} K /
+        {{weather.temperature.1 }} C / {{ weather.temperature.2 }} F</p>
+      <p></p>
     </div>
     <div style="min-width: 150px;">
       <a href="{% url 'mood_quizzes:quiz' %}" class="btn btn-lg btn-block btn-secondary mb-3">Quiz</a>
@@ -47,7 +52,7 @@
       <a href="{% url 'accounts:logout' %}" class="btn btn-lg btn-block btn-secondary mb-3">Logout</a>
     </div>
 
-  </div>  
+  </div>
 
 </body>
 

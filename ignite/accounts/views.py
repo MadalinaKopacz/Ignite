@@ -178,7 +178,7 @@ def change_password_view(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return render(request, 'accounts/profile.html', context)
+            return profile(request)
 
         else:
             context['error'] = "Passwords don't match."

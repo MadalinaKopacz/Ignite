@@ -20,27 +20,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <title>Ignite</title>
+    <title>Ignite</title>
 </head>
 
 <body style="background-color: #FFEEC4">
-    <img style="height: 60px; top:10px; margin-left:45%; margin-bottom:10px; position:relative" src="{% static 'global_images/logo.png' %}" />
+    <a href="{% url 'start_page:get_start_page' %}"><img
+            style="height: 60px; top:10px; margin-left:45%; margin-bottom:10px; position:relative"
+            src="{% static 'global_images/logo.png' %}" /> </a>
     <div style="height: 100%; width:100%; position:absolute" id="map"></div>
-    <a style = "position:absolute; top:90%; margin-left:-50%; box-sizing:content-box" href="{% url 'start_page:get_start_page' %}" class="btn btn-lg btn-secondary mb-3">Go to home page</a>
-    <script 
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyariNg9tgX0GBtdB2I_syXBuiN3BOBNs&callback=initMap&libraries=&v=weekly" async>
-    </script>
-          
+    <a style="position:absolute; top:90%; margin-left:-50%; box-sizing:content-box"
+        href="{% url 'start_page:get_start_page' %}" class="btn btn-lg btn-secondary mb-3">Go to home page</a>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyariNg9tgX0GBtdB2I_syXBuiN3BOBNs&callback=initMap&libraries=&v=weekly"
+        async>
+        </script>
+
     <script>
         function initMap() {
             const coords = {
                 lat: parseFloat("{{lat}}"),
                 lng: parseFloat("{{lon}}")
             };
-          
+
             const map = new google.maps.Map(
                 document.getElementById("map"), {
-          
+
                 zoom: 17.56,
                 center: coords,
             });
@@ -51,23 +55,23 @@
                 position: map.getCenter(),
                 map: map,
                 label: first_name[0] + last_name[0]
-                });
+            });
 
             const friends = JSON.parse("{{friends|escapejs}}");
 
-            for(const [ key, value ] of Object.entries(friends)){
+            for (const [key, value] of Object.entries(friends)) {
                 console.log(value)
                 var f_name = value[1]
                 var l_name = value[0]
                 new google.maps.Marker({
-                    position: {lat:parseFloat(value[2]), lng:parseFloat(value[3])},
+                    position: { lat: parseFloat(value[2]), lng: parseFloat(value[3]) },
                     map: map,
                     label: f_name[0] + l_name[0]
-                    });
+                });
             }
-            }
-            </script>
+        }
+    </script>
 
-            
-    
+
+
 </body>

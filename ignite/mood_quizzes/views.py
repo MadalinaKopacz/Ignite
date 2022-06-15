@@ -28,7 +28,7 @@ def list_view(request):
     """
     method that returns a page with all the questions in data base
     """
-    context ={}
+    context = {}
  
     context["dataset"] = Question.objects.all()
          

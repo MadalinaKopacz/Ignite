@@ -13,8 +13,9 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
-<body style="background-color: #FFEEC4">
-    <img style="height: 7%; margin: 15px auto auto 20px" src="{% static 'global_images/logo.png' %}" />
+<body style="background-image:url('../../static/global_images/background.png'); background-size: cover;">
+    <a href="{% url 'start_page:get_start_page' %}"><img style="height: 7%; margin: 15px auto auto 20px"
+            src="{% static 'global_images/logo.png' %}" /></a>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">

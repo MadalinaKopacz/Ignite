@@ -11,59 +11,65 @@
 </head>
 
 
-<body style="background-color: #FFEEC4">
-    <a href="/"><img style="height: 7%; margin: 15px auto auto 20px" src="{% static 'global_images/logo.png' %}" />
+<body style="background-image:url('../../static/global_images/background.png'); background-size: cover;">
+    <a href="{% url 'start_page:get_start_page' %}"><img style="height: 7%; margin: 15px auto auto 20px"
+            src="{% static 'global_images/logo.png' %}" />
     </a>
     <div class="container">
         <div class="container">
             <div class="row d-flex justify-content-center align-items-center">
-            <div class="col col-lg-6 mb-4 mb-lg-0">
-                <div class="card mb-3" style="border-radius: .5rem;">
-                <div class="row">
-                    <div class="col-md-4 text-center d-flex flex-column justify-content-around"
-                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                        <img src="{{data.profile_picture.url}}"
-                            alt="Profile picture" class="img-fluid"
-                            style="width: 180px; border-radius: 10px; margin-left: 1rem; margin-top: 1rem;" />
-                        <h5 style="margin-left: 1.2rem;">{{data.first_name}} {{data.last_name}}</h5>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body p-4">
-                            <h6>Profil</h6>
-                            <hr class="mt-0 mb-2">
-                            <h6>Username</h6>
-                            <p class="text-muted">{{data.username}}</p>
+                <div class="col col-lg-6 mb-4 mb-lg-0">
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row">
+                            <div class="col-md-4 text-center d-flex flex-column justify-content-around"
+                                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                <img src="{{data.profile_picture.url}}" alt="Profile picture" class="img-fluid"
+                                    style="width: 180px; border-radius: 10px; margin-left: 1rem; margin-top: 1rem;" />
+                                <h5 style="margin-left: 1.2rem;">{{data.first_name}} {{data.last_name}}</h5>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <h6>Profil</h6>
+                                    <hr class="mt-0 mb-2">
+                                    <h6>Username</h6>
+                                    <p class="text-muted">{{data.username}}</p>
 
-                                <h6>Email</h6>
-                                <p class="text-muted"> {{data.email}}</p>
-                        
-                            <h6>Friends</h6>
-                            <hr class="mt-0 mb-2">
-                            <div class="row pt-1">
-                            <div class="col">
-                                {% if not friends %}
-                                <a href="{% url 'accounts:search' %}"><p class="text-muted">No friends yet. Add them now.</p></a>
-                                {% else %}
-                                {% for friend in friends %}
-                                <p class="text-muted"> {{friend.username }}</p>
-                                {% endfor %}
-                                {% endif %}
-                            </div>
-                            </div>
-                            <hr class="mt-0 mb-2">
-                            <div class="row pt-1">
-                            <div class="col">
-                                <a href="{% url 'accounts:update' %}" class="btn btn-sm btn-secondary mb-3"> Update profile </a>
-                                <a href="{% url 'accounts:chpass' %}" class="btn btn-sm btn-secondary mb-3"> Change password </a>
-                                <a href="{% url 'accounts:search' %}" class="btn btn-sm btn-secondary mb-3"> Add friends </a>
-                                <a href="{% url 'accounts:requests' %}" class="btn btn-sm btn-secondary mb-3"> Accept requests </a>
-                            </div>
+                                    <h6>Email</h6>
+                                    <p class="text-muted"> {{data.email}}</p>
+
+                                    <h6>Friends</h6>
+                                    <hr class="mt-0 mb-2">
+                                    <div class="row pt-1">
+                                        <div class="col">
+                                            {% if not friends %}
+                                            <a href="{% url 'accounts:search' %}">
+                                                <p class="text-muted">No friends yet. Add them now.</p>
+                                            </a>
+                                            {% else %}
+                                            {% for friend in friends %}
+                                            <p class="text-muted"> {{friend.username }}</p>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr class="mt-0 mb-2">
+                                    <div class="row pt-1">
+                                        <div class="col">
+                                            <a href="{% url 'accounts:update' %}" class="btn btn-sm btn-secondary mb-3">
+                                                Update profile </a>
+                                            <a href="{% url 'accounts:chpass' %}" class="btn btn-sm btn-secondary mb-3">
+                                                Change password </a>
+                                            <a href="{% url 'accounts:search' %}" class="btn btn-sm btn-secondary mb-3">
+                                                Add friends </a>
+                                            <a href="{% url 'accounts:requests' %}"
+                                                class="btn btn-sm btn-secondary mb-3"> Accept requests </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-            </div>
             </div>
         </div>
     </div>
