@@ -147,26 +147,27 @@ Avem un total de 8 teste automate de tip unit, implementate prin întermediul cl
    
    
    Rularea testelor se face prin comanda `python manage.py test` scrisă în terminal, iar rezultatul acesteia în cadrul proiectului nostru este:
-   ![image](https://user-images.githubusercontent.com/79279298/173663150-090ccf3e-825e-4f73-82c4-18c94ef42384.png)
+ ![image](https://user-images.githubusercontent.com/79279298/173867871-f28a408f-ce68-4f74-94f2-621a06cc63d3.png)
 
 
 ## Bug reporting
 
 1. Variabilele din context în Django sunt date ca șiruri de caractere, iar în funcția de inițializare a hărții unde aveam nevoie de valorile longitudinii și latitudinii ca numere reale, preluam variabilele din context fără conversie, rezultând într-un bug. Pentru a rezolva problema am făcut conversie la float.
 
-2. Pagina de Login redirectiona la pagina de create user (Signup), iar cea de Logout redirectiona inapoi de Login în loc de prima pagină (cu Login/Signup). Pentru a rezolva bugul, am schimbat login url-ul și redirecționările. 
+2. Pagina de Login redirecționa la pagina de create user (Signup), iar cea de Logout redirecționa înapoi de Login în loc de prima pagină (cu Login/Signup). Pentru a rezolva bugul, am schimbat login url-ul și redirecționările. 
 
 
 ## Build tool
 
-Pentru a crea proiectul am utilizat comanda `django-admin startproject ignite` în terminal. Această comandă creează un director care conține fișierul manage.py și un director care conține fișierul de inițializare și fișierele settings.py, urls.py, asgi.py și wsgi.py. Pentru a crea fiecare app am folosit comenzi precum `python manage.py startapp accounts` care creează câte un director pentru fiecare app, conținănd fișierul de inițializare, apps.py, folderul de migrations și fișierele models.py, tests.py și views.py. 
+Pentru a crea proiectul am utilizat comanda `django-admin startproject ignite` în terminal. Această comandă creează un director care conține fișierul manage.py și un director care conține fișierul de inițializare și fișierele settings.py, urls.py, asgi.py și wsgi.py. Pentru a crea fiecare app am folosit comenzi precum `python manage.py startapp accounts` care creează câte un director pentru fiecare app, conținănd fișierul de inițializare, apps.py, folderul de migrations și fișierele models.py, tests.py și views.py. Mai mult, comenzile `python manage.py makemigrations` și `python manage.py migrate` generează automat și rulează codul pentru crearea tabelelor în Mysql plecând de la o clasă din Python. 
 
-Mai mult, am utilizat și venv ca virtual environment pentru a putea ține evidența librăriilor pe care le-am utilizat.
+Totodată, am utilizat și venv ca virtual environment pentru a putea ține evidența librăriilor pe care le-am utilizat.
 
 
 ## Refactoring & Code standards
-
+Pentru refactoring un principiu important este ca fiecare metodă să întocmească o singură acțiune. La început aveam o funcție care returna ora curentă, lua coordonatele userului, făcea conexiunea cu API-ul de vreme și returna o pagină HTML cu toate aceste date. Deoarece am avut nevoie în mai multe locuri doar de vreme sau doar de coordonatele userului, am decis că este mai bine să împărțim funcția inițială în trei funcții `get_time`, `get_temperature` și `get_data`.
+Mai mult, am urmat code standardurile din python, iar aplicația este organizată în App-uri și template-urile se găsesc la "template/app_name/template.html". Comentariile din cod urmează modelul Docstrings, avem importurile la începutul paginii si spațierea este de două rânduri între funcții. 
 
 ## Design patterns
 
-Am utilizat design patternul Model-View-Template (MVT) specific Djangoului. Modelele gestionează datele și este reprezentată de baza noastră de date, un model reprezentând o tabelă din baza de date. Un view primește cereri HTTP și trimite răspuri HTML, interacționând cu un model și un template pentru a finaliza un răspuns. Template-ul conține componenta HTML-ul dinamică a aplicației. 
+Am utilizat design patternul Model-View-Template (MVT) specific Djangoului. Modelele gestionează datele și este reprezentată de baza noastră de date, un model reprezentând o tabelă din baza de date. Un view primește cereri HTTP și trimite răspuri HTML, interacționând cu un model și un template pentru a finaliza un răspuns. Template-ul conține componenta HTML-ul dinamică a aplicației. Mai mult, avem și Active record pattern corespunzător modelelor din Django, incapsulând accesul la baza de date. Avem moștenire în cadrul modelelor (fiecare entitate în ierarhie este mapată către un tabel separat) și Identity field care salvează câmpul de ID al bazei de date într-un obiect pentru a menține identitatea.
