@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'ignite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mds_project',
+        'NAME': 'ignite',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'sCbl55AlVlea',
     }
 }
 
@@ -137,11 +137,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom user model
 AUTH_USER_MODEL = "accounts.User"
 
-
+# Media link to use images in templates
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-
+# Login redirect for django login form/view
 LOGIN_REDIRECT_URL = '/start_page/get/'
 
+# Path for GEOIP library
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')

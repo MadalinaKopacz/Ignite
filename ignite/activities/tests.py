@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from activities.models import Activity
 
+
 class ActivitiesModelsTest(TestCase):
     @classmethod
     def setUpTestData(cls):
