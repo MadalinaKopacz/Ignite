@@ -1,11 +1,12 @@
 # Ignite
 
 
-## Prezentarea Proiectului
+## Prezentarea Proiectului. Demo.
+[Click aici pentru demo.](https://youtu.be/DDfztA7132o)
+
 Ignite este aplicația care te ajută să găsești idei pentru a-ți petrece timpul liber, în funcție de cum te simți. Pe baza răspunsurilor din cadrul unui quiz ce iau în calcul bateria ta socială, cât de activ fizic dorești să fii și care este bugetul tău, și totodată luănd în considerare și vremea de afară, primești recomandări asupra activităților pe care le poți face din confortul casei tale sau ieșind în oraș. Mai mult, dacă dorești, îți poți invita prietenii la activități sau poți vedea cum se distrează ei în timpul liber.
 
 Ignite your good mood, ignite your free time!
-
 
 ## User Stories
  **User Story 1** (Studentă la Arhitectură, București, anul I): „M-am mutat de curând în București și mi-ar plăcea să descopăr mai bine orașul. Totuși, în afară de Centrul Vechi și de câteva muzee mai cunoscute, nu știu unde să-mi petrec timpul. A devenit monoton să merg doar în acele locuri și să fac mereu aceleași lucruri! Cred că o aplicație sau un site care să îmi dea sugestii de activități și unde pot să le desfășor ar fi binevenită!”
